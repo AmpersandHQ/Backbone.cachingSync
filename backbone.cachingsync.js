@@ -105,6 +105,11 @@
         function update (model, options) {
             var old = burry.get(model.id);
             burry.set(model.id, model.attributes);
+            var success = options.success;
+            options.success = function(resp) {
+                if (success) success(resp);
+                burry.set(model.id, resp);
+            }
             return wrapped('update', model, options)
                 .fail(function () {
                     if (old) {
