@@ -13,7 +13,7 @@
         });
     } else {
         // Browser globals
-        root.Backbone.cachingSync = factory(root.$, root._, root.Backbone, root.Burry);
+        root.Backbone.cachingSync = factory(root.jQuery, root._, root.Backbone, root.Burry);
     }
 }(this, function ($, _, Backbone, Burry) {
 
@@ -39,10 +39,12 @@
                 updated = {},
                 wp;
 
-            wp = wrapped('read', model, options).done(function (attrs) {
-                model.set(attrs);
-                burry.set(model.id, model.toJSON());
-            });
+            if (options.no_request !== true) {
+                wp = wrapped('read', model, options).done(function (attrs) {
+                    model.set(attrs);
+                    burry.set(model.id, model.toJSON());
+                });
+            }
 
             if (typeof item !== 'undefined') {
                 _.each(item, function (value, key) {
