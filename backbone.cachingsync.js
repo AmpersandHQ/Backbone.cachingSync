@@ -39,7 +39,7 @@
                 updated = {},
                 wp;
 
-            if (options.no_request !== true) {
+            if (options.make_request !== true) {
                 wp = wrapped('read', model, options).done(function (attrs) {
                     model.set(attrs);
                     burry.set(model.id, model.toJSON());
