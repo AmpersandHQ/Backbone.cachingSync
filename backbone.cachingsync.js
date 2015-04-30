@@ -39,10 +39,12 @@
                 updated = {},
                 wp;
 
-            wp = wrapped('read', model, options).done(function (attrs) {
-                model.set(attrs);
-                burry.set(model.id, model.toJSON());
-            });
+            if (options.no_request !== true) {
+                wp = wrapped('read', model, options).done(function (attrs) {
+                    model.set(attrs);
+                    burry.set(model.id, model.toJSON());
+                });
+            }
 
             if (typeof item !== 'undefined') {
                 _.each(item, function (value, key) {
