@@ -39,7 +39,7 @@
                 updated = {},
                 wp;
 
-            if (options.make_request !== true) {
+            if (options.make_request === true || typeof item === 'undefined') {
                 wp = wrapped('read', model, options).done(function (attrs) {
                     model.set(attrs);
                     burry.set(model.id, model.toJSON());
