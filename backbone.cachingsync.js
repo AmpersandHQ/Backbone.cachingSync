@@ -29,6 +29,8 @@
         // Create the `Burry.Store`
         var burry = new Burry.Store(ns, default_ttl);
 
+        burry.flushExpired();
+
         // **get** caches *read* operations on a model. If the model is cached,
         // it will resolve immediately with the updated attributes, triggering a `change`
         // event when the server *read* gets resolved. If no cache exists, the operation resolves
