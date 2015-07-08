@@ -41,6 +41,15 @@
                 updated = {},
                 wp;
 
+            if (options.validate && _.isFunction(options.validate) && item) {
+                var valid = options.validate.call(model, item, options);
+
+                if (valid === false) {
+                    item = undefined;
+                    options.make_request = true;
+                }
+            }
+
             if (options.make_request === true || typeof item === 'undefined') {
                 wp = wrapped('read', model, options).done(function (attrs) {
                     model.set(attrs);
